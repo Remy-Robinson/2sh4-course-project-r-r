@@ -117,7 +117,7 @@ void Player::movePlayer()
     playerPosList->insertHead(newHead);
 
 
-    if(checkSelfCollision())
+    if(checkSelfCollision()) //if the player collides with itself
     {
         mainGameMechsRef->setLoseFlag();
         return;
