@@ -158,7 +158,15 @@ void DrawScreen(void)
         gm->setExitTrue();
         return;
     }
-
+    
+    //Check for winning condition: when snake size is the same as the available spaces
+    if (snake->getSize() == (gm->getBoardSizeX()-2)*(gm->getBoardSizeY()-2))
+    {
+        MacUILib_clearScreen();
+        MacUILib_printf("You have won the game! Final Score: %d\n", gm->getScore());
+        gm->setExitTrue();
+        return;
+    }
     // checking force exit condition
     if(gm->getExitFlagStatus())
     {
