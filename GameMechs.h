@@ -19,7 +19,6 @@ class GameMechs
         int score;
         int boardSizeX;
         int boardSizeY;
-        char exitmsg[100];
     public:
         GameMechs();
         GameMechs(int boardX, int boardY);
@@ -39,9 +38,6 @@ class GameMechs
         int getScore() const;
         void incrementScore();
         
-        // More methods should be added here
-        void setEndMsg(const char* msg);
-        const char* getEndMsg() const;
         void incrementScoreBy(int x);
 };
 

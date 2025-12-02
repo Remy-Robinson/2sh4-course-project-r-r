@@ -23,6 +23,7 @@ void Food::generateFood(objPosArrayList* snakeList, int boardSizeX,int boardSize
 
         for (int i = 0; i < snakeList->getSize(); i++)
         {
+            //check if new food position overlaps with snake body (if it does regenerate)
             objPos body = snakeList->getElement(i);
             if (body.pos->x == randX && body.pos->y == randY)
             {
@@ -39,7 +40,7 @@ void Food::generateFood(objPosArrayList* snakeList, int boardSizeX,int boardSize
 void Food::generateFoods(objPosArrayList* snakeList, int boardSizeX, int boardSizeY)
 {
     foodBucket->clear();
-
+//generate multiple food items
     for (int i = 0; i < 5; i++)
     {
         int randX,randY;
@@ -47,11 +48,12 @@ void Food::generateFoods(objPosArrayList* snakeList, int boardSizeX, int boardSi
 
         while (!valid)
         {
+            //random seeding logic
             randX = rand() % (boardSizeX - 2) + 1;
             randY = rand() % (boardSizeY - 2) + 1;
     
             valid = true;
-    
+            //check if new food position overlaps with snake body
             for (int j = 0; j < snakeList->getSize(); j++)
             {
                 objPos body = snakeList->getElement(j);
@@ -61,7 +63,7 @@ void Food::generateFoods(objPosArrayList* snakeList, int boardSizeX, int boardSi
                     break;
                 }
             }
-
+            //check if new food position overlaps with existing food positions
             for (int j = 0; j < foodBucket->getSize(); j++)
             {
                 objPos food = foodBucket->getElement(j);
@@ -102,21 +104,6 @@ objPosArrayList* Food::getFoodBucket() const
 
 Food::~Food()
 {
-    //currently no heap members. included incase there may be some in the future
     delete foodBucket;
     foodBucket = nullptr;
 }
-
-
-
-/*void GameMechs::generateFood(){
-    int foodX = rand() & (boardSizeX - 2) + 1;
-    int foodY = rand() & (boardSizeY - 2) + 1;
-
-    food.setObjPos(foodX, foodY, '*');
-}
-//return food pos
-objPos GameMechs::getFoodPos() const{
-    return food;
-}
-*/

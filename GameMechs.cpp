@@ -100,22 +100,6 @@ void GameMechs::clearInput()
 
 
 
-// More methods should be added here
-void GameMechs::setEndMsg(const char* msg)
-{
-    int i = 0;
-    while(msg[i] != '\0' && i < 99){
-        exitmsg[i] = msg[i];
-        i++;
-    }
-    exitmsg[i] = '\0';
-}
-
-const char* GameMechs::getEndMsg() const
-{
-    return exitmsg;
-}
-
 //generate food pos as random tile within board
 
 void GameMechs::incrementScoreBy(int x)

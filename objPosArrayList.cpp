@@ -29,6 +29,7 @@ void objPosArrayList::insertHead(objPos thisPos)
         return;
     }
 
+//shift elements to the right to make space for new head
     for (int i = listSize; i > 0; i--)
     {
         aList[i] = aList[i-1];

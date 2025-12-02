@@ -47,25 +47,14 @@ void Initialize(void)
 
     srand((unsigned)time(NULL));
 
+    //initializing game mechanics, player, and food
     gm = new GameMechs();
     food = new Food();
     player = new Player(gm,food);
 
     //generating snake
     objPosArrayList* snakeList = player->getPlayerPos();
-
-    //generating foods
-    // objPosArrayList* foodBucket = food->getFoodBucket();
-    
-    // Generate snake length
-    // objPos snakeHead = snakeList->getHeadElement();
-
-    // for(int i = 1; i <= 4; i++)
-    // {
-    //     objPos newSegment(snakeHead.pos->x - i, snakeHead.pos->y, '*');
-    //     snakeList->insertTail(newSegment);
-    // }
-
+    //generate food
     food->generateFoods(snakeList, gm->getBoardSizeX(), gm->getBoardSizeY());
 }
 
@@ -119,12 +108,14 @@ void DrawScreen(void)
             }
             else
             {
+                /* Main Printing Block:                 */
                 bool isBodyPart = false, isFood = false;
                 
                 // Check if snake body part is at this position
                 for(int k = 0; k < snake->getSize(); k++) //recursive call
                 {
                     objPos bodyPart = snake->getElement(k);
+
                     if (j == bodyPart.pos->x && i == bodyPart.pos->y)
                     {
                         MacUILib_printf("%c", bodyPart.getSymbol());
@@ -136,8 +127,11 @@ void DrawScreen(void)
                 for(int k = 0; k < bucket->getSize(); k++)
                 {
                     objPos food = bucket->getElement(k);
+                    
+                    // Takes the current board coordinates and compares to the food
                     if (j == food.pos->x && i == food.pos->y)
                     {
+                        //if food is found at this position, print food symbol
                         MacUILib_printf("%c", food.getSymbol());
                         isFood = true;
                         break;
@@ -156,6 +150,7 @@ void DrawScreen(void)
     MacUILib_printf("use WASD to move the snake. Press ESC to exit.\n");
     MacUILib_printf("Score: %d\n", gm->getScore());
 
+    //Check for losing condition: when snake runs into itself
     if(gm->getLoseFlagStatus())
     {
         MacUILib_clearScreen();
@@ -164,6 +159,7 @@ void DrawScreen(void)
         return;
     }
 
+    // checking force exit condition
     if(gm->getExitFlagStatus())
     {
         MacUILib_clearScreen();
@@ -182,6 +178,7 @@ void LoopDelay(void)
 void CleanUp(void)
 {
 
+    // Deallocating memory
     delete player;
     player = nullptr;
 

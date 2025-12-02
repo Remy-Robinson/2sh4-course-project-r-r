@@ -8,12 +8,6 @@
 
 class Player
 {
-    // Construct the remaining declaration from the project manual.
-
-    // Only some sample members are included here
-
-    // You will include more data members and member functions to complete your design.
-
     
     public:
         enum Dir {UP, DOWN, LEFT, RIGHT, STOP};  // This is the direction state
@@ -24,10 +18,7 @@ class Player
         void updatePlayerDir();
         void movePlayer();
         //after getting position, return to caller as an objPosArrayList reference
-        
-        
-        // this might be necessary: objPosArrayList* getPlayerPosList() const;
-        
+                
         bool checkFoodConsumption(const objPos &foodPos) const;
         void increasePlayerLength();
         bool checkSelfCollision() const;       

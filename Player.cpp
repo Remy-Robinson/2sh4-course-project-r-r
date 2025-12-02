@@ -31,7 +31,8 @@ void Player::updatePlayerDir()
     char input = mainGameMechsRef->getInput();
 
     switch(input)
-    {            // Add more key processing here
+    {            
+        //main key processing block
         case 'w': case 'W':
             if (myDir != DOWN) 
             {
@@ -73,6 +74,7 @@ void Player::movePlayer()
 
     switch (myDir)
     {
+        //FSM movement logic
         case STOP: //end movePlayer function early if no movement is detected
             return;
         case UP:
@@ -95,6 +97,8 @@ void Player::movePlayer()
 
     int borderX = mainGameMechsRef->getBoardSizeX();
     int borderY = mainGameMechsRef->getBoardSizeY();
+
+    //border control logic same as PPA**
 
     if (x == borderX-1) {
         x = 1;
@@ -124,9 +128,10 @@ void Player::movePlayer()
     
     for (int i = 0; i < bucket->getSize(); i++)
     {
+        
         objPos foodPos = bucket->getElement(i);
 
-        if(checkFoodConsumption(foodPos))
+        if(checkFoodConsumption(foodPos)) //checks if head position matches the food position to register consumption
         {
             eaten = true;
             if (foodPos.getSymbol() == '@')
@@ -144,7 +149,7 @@ void Player::movePlayer()
     }
     if (!eaten)
     {
-        playerPosList->removeTail();
+        playerPosList->removeTail(); //normal movement routine (no growth)
     }
 }
 
@@ -155,8 +160,9 @@ Player::~Player()
     playerPosList = nullptr;
 }
 
-// More methods to be added
+
 bool Player::checkFoodConsumption(const objPos &foodPos) const
+//checks if the player's head position matches the food position
 {
     objPos head = playerPosList->getHeadElement();
 
@@ -167,6 +173,7 @@ bool Player::checkSelfCollision() const
 {
     objPos head = playerPosList->getHeadElement();
 
+    // Check if the snake's head collides with any other part of its body
     for (int i = 1; i < playerPosList->getSize(); i++)
     {
         objPos body = playerPosList->getElement(i);
