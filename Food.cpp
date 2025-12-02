@@ -39,9 +39,18 @@ void Food::generateFood(objPosArrayList* snakeList, int boardSizeX,int boardSize
 
 void Food::generateFoods(objPosArrayList* snakeList, int boardSizeX, int boardSizeY)
 {
+    int bucketSize = 5;
+
+    //If there is less than 5 remaining possible tiles to place food, then it will get filled as such
+    if ((boardSizeX-2)*(boardSizeY-2)-snakeList->getSize()<5)
+    {
+        //CHECK LOGIC TO THIS STATEMENT
+        bucketSize = (boardSizeX-2)*(boardSizeY-2)-snakeList->getSize();
+    }
+
     foodBucket->clear();
 //generate multiple food items
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < bucketSize; i++)
     {
         int randX,randY;
         bool valid = false;
@@ -79,7 +88,16 @@ void Food::generateFoods(objPosArrayList* snakeList, int boardSizeX, int boardSi
 
         if (i<2)
         {
-            symbol = '@';
+            //one element will always be special character, other input has 50/50 chance of being special symbol
+            if (i == 0 || rand()%2) 
+            {
+                symbol = '@';
+            }
+            else
+            {
+                symbol = 'O';
+            }
+
         }
         else
         {
